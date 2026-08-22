@@ -2,17 +2,15 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Home } from '../pages/Home';
-import { DestinationSearch } from '../pages/DestinationSearch';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { Dashboard } from '../pages/Dashboard';
 import { MyTrips } from '../pages/MyTrips';
 import { CreateTrip } from '../pages/CreateTrip';
 import { TripDetails } from '../pages/TripDetails';
-import { ItineraryBuilder } from '../pages/ItineraryBuilder';
-import { ItineraryView } from '../pages/ItineraryView';
-import { TripBudget } from '../pages/TripBudget';
+import { DestinationSearch } from '../pages/DestinationSearch';
 import { ActivitySearch } from '../pages/ActivitySearch';
+import { CalendarPage } from '../pages/Calendar';
 import { Profile } from '../pages/Profile';
 import { Settings } from '../pages/Settings';
 import { ForgotPassword } from '../pages/ForgotPassword';
@@ -39,6 +37,8 @@ export const AppRoutes: React.FC = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/discover" element={<DestinationSearch />} />
+      <Route path="/activities" element={<ActivitySearch />} />
+
       <Route
         path="/login"
         element={
@@ -98,32 +98,15 @@ export const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/trips/:id/builder"
-        element={
-          <ProtectedRoute>
-            <ItineraryBuilder />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/trips/:id/view"
-        element={
-          <ProtectedRoute>
-            <ItineraryView />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/trips/:id/budget"
-        element={
-          <ProtectedRoute>
-            <TripBudget />
-          </ProtectedRoute>
-        }
-      />
 
-      <Route path="/activities" element={<ActivitySearch />} />
+      <Route
+        path="/calendar"
+        element={
+          <ProtectedRoute>
+            <CalendarPage />
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/profile"

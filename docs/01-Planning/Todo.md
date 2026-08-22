@@ -432,21 +432,21 @@
 
 ## Backend
 
-* [ ] Calendar data API
-* [ ] Date-based itinerary API
-* [ ] Calendar event transformation
+* [X] Calendar data API
+* [X] Date-based itinerary API
+* [X] Calendar event transformation
 
 ## Frontend
 
-* [ ] Calendar page
-* [ ] Monthly view
-* [ ] Trip date visualization
-* [ ] Day view
-* [ ] Activity view
-* [ ] Timeline view
-* [ ] Expandable day sections
-* [ ] Activity ordering
-* [ ] Quick edit actions
+* [X] Calendar page
+* [X] Monthly view
+* [X] Trip date visualization
+* [X] Day view
+* [X] Activity view
+* [X] Timeline view
+* [X] Expandable day sections
+* [X] Activity ordering
+* [X] Quick edit actions
 
 ---
 

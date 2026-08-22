@@ -6,6 +6,7 @@ import dashboardRoutes from './dashboardRoutes.js';
 import tripRoutes from './tripRoutes.js';
 import activityRoutes from './activityRoutes.js';
 import destinationRoutes from './destinationRoutes.js';
+import calendarRoutes from './calendarRoutes.js';
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/dashboard', dashboardRoutes);
 router.use('/trips', tripRoutes);
 router.use('/activities', activityRoutes);
 router.use('/destinations', destinationRoutes);
+router.use('/calendar', calendarRoutes);
 
 export default router;

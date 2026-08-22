@@ -204,6 +204,20 @@ export const Navbar: React.FC = () => {
               </Link>
 
               <Link
+                to="/calendar"
+                style={{
+                  color: '#111827',
+                  fontWeight: 600,
+                  fontSize: '0.875rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                }}
+              >
+                <Compass size={16} color="#059669" /> Calendar
+              </Link>
+
+              <Link
                 to="/profile"
                 style={{
                   display: 'flex',
