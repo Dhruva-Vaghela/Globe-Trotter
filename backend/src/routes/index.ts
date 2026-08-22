@@ -9,6 +9,7 @@ import destinationRoutes from './destinationRoutes.js';
 import calendarRoutes from './calendarRoutes.js';
 import communityRoutes from './communityRoutes.js';
 import publicRoutes from './publicRoutes.js';
+import adminRoutes from './adminRoutes.js';
 
 const router = Router();
 
@@ -21,6 +22,7 @@ router.use('/activities', activityRoutes);
 router.use('/destinations', destinationRoutes);
 router.use('/calendar', calendarRoutes);
 router.use('/community', communityRoutes);
+router.use('/admin', adminRoutes);
 router.use('/', publicRoutes);
 
 export default router;

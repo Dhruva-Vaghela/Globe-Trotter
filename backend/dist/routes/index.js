@@ -14,6 +14,7 @@ const destinationRoutes_js_1 = __importDefault(require("./destinationRoutes.js")
 const calendarRoutes_js_1 = __importDefault(require("./calendarRoutes.js"));
 const communityRoutes_js_1 = __importDefault(require("./communityRoutes.js"));
 const publicRoutes_js_1 = __importDefault(require("./publicRoutes.js"));
+const adminRoutes_js_1 = __importDefault(require("./adminRoutes.js"));
 const router = (0, express_1.Router)();
 router.use('/', healthRoutes_js_1.default);
 router.use('/auth', authRoutes_js_1.default);
@@ -24,5 +25,6 @@ router.use('/activities', activityRoutes_js_1.default);
 router.use('/destinations', destinationRoutes_js_1.default);
 router.use('/calendar', calendarRoutes_js_1.default);
 router.use('/community', communityRoutes_js_1.default);
+router.use('/admin', adminRoutes_js_1.default);
 router.use('/', publicRoutes_js_1.default);
 exports.default = router;

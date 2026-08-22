@@ -511,31 +511,31 @@
 
 ## Backend
 
-* [ ] Admin authorization
-* [ ] Admin controller
-* [ ] Admin service
-* [ ] User statistics API
-* [ ] Trip statistics API
-* [ ] Destination statistics API
-* [ ] Activity statistics API
-* [ ] Engagement statistics API
-* [ ] Popular destinations API
-* [ ] Popular activities API
+* [X] Admin authorization
+* [X] Admin controller
+* [X] Admin service
+* [X] User statistics API
+* [X] Trip statistics API
+* [X] Destination statistics API
+* [X] Activity statistics API
+* [X] Engagement statistics API
+* [X] Popular destinations API
+* [X] Popular activities API
 
 ## Frontend
 
-* [ ] Admin dashboard
-* [ ] User management page
-* [ ] User table
-* [ ] User search
-* [ ] User filters
-* [ ] Popular cities section
-* [ ] Popular activities section
-* [ ] Trip statistics
-* [ ] User statistics
-* [ ] Engagement analytics
-* [ ] Charts
-* [ ] Tables
+* [X] Admin dashboard
+* [X] User management page
+* [X] User table
+* [X] User search
+* [X] User filters
+* [X] Popular cities section
+* [X] Popular activities section
+* [X] Trip statistics
+* [X] User statistics
+* [X] Engagement analytics
+* [X] Charts
+* [X] Tables
 
 ---
 

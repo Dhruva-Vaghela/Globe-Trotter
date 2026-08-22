@@ -18,6 +18,7 @@ import { CalendarPage } from '../pages/Calendar';
 import { Community } from '../pages/Community';
 import { Profile } from '../pages/Profile';
 import { Settings } from '../pages/Settings';
+import { AdminDashboard } from '../pages/AdminDashboard';
 import { ForgotPassword } from '../pages/ForgotPassword';
 import { ResetPassword } from '../pages/ResetPassword';
 import { NotFound } from '../pages/NotFound';
@@ -145,6 +146,14 @@ export const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminDashboard />
           </ProtectedRoute>
         }
       />
