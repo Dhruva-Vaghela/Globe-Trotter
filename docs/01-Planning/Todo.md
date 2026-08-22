@@ -561,26 +561,26 @@
 
 # 18. Database
 
-* [ ] Finalize ER diagram
-* [ ] Create users table
-* [ ] Create user preferences table
-* [ ] Create trips table
-* [ ] Create destinations table
-* [ ] Create countries/regions tables
-* [ ] Create trip stops table
-* [ ] Create activities table
-* [ ] Create activity categories table
-* [ ] Create itinerary sections table
-* [ ] Create itinerary items table
-* [ ] Create expenses table
-* [ ] Create budgets table
-* [ ] Create community posts table
-* [ ] Create public/shared trip relationships
-* [ ] Create required foreign keys
-* [ ] Create indexes
-* [ ] Create constraints
-* [ ] Create seed data
-* [ ] Test database relationships
+* [X] Finalize ER diagram
+* [X] Create users table
+* [X] Create user preferences table
+* [X] Create trips table
+* [X] Create destinations table
+* [X] Create countries/regions tables
+* [X] Create trip stops table
+* [X] Create activities table
+* [X] Create activity categories table
+* [X] Create itinerary sections table
+* [X] Create itinerary items table
+* [X] Create expenses table
+* [X] Create budgets table
+* [X] Create community posts table
+* [X] Create public/shared trip relationships
+* [X] Create required foreign keys
+* [X] Create indexes
+* [X] Create constraints
+* [X] Create seed data
+* [X] Test database relationships
 
 ---
 
