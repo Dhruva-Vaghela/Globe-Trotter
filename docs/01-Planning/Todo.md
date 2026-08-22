@@ -266,33 +266,34 @@
 
 ## Backend
 
-* [ ] Destination model
-* [ ] Country/region data
-* [ ] Destination controller
-* [ ] Destination service
-* [ ] Destination search API
-* [ ] Destination details API
-* [ ] Destination filter API
-* [ ] Destination sort API
-* [ ] Add destination to trip API
-* [ ] Remove destination from trip API
-* [ ] Reorder destinations API
+* [x] Destination model
+* [x] Country/region data
+* [x] Destination controller
+* [x] Destination service
+* [x] Destination search API
+* [x] Destination details API
+* [x] Destination filter API
+* [x] Destination sort API
+* [x] Add destination to trip API
+* [x] Remove destination from trip API
+* [x] Reorder destinations API
 
 ## Frontend
 
-* [ ] City search page
-* [ ] Search bar
-* [ ] Search results
-* [ ] Destination card
-* [ ] Destination detail view
-* [ ] Add to Trip action
-* [ ] Remove destination action
-* [ ] Country filter
-* [ ] Region filter
-* [ ] Cost filter
-* [ ] Popularity sorting
-* [ ] Loading state
-* [ ] Empty state
+* [x] City search page
+* [x] Search bar
+* [x] Search results
+* [x] Destination card
+* [x] Destination detail view
+* [x] Add to Trip action
+* [x] Remove destination action
+* [x] Country filter
+* [x] Region filter
+* [x] Cost filter
+* [x] Popularity sorting
+* [x] Loading state
+* [x] Empty state
+
 
 ---
 

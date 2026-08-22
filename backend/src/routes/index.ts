@@ -5,6 +5,7 @@ import userRoutes from './userRoutes.js';
 import dashboardRoutes from './dashboardRoutes.js';
 import tripRoutes from './tripRoutes.js';
 import activityRoutes from './activityRoutes.js';
+import destinationRoutes from './destinationRoutes.js';
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use('/users', userRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/trips', tripRoutes);
 router.use('/activities', activityRoutes);
+router.use('/destinations', destinationRoutes);
 
 export default router;

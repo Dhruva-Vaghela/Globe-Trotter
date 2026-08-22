@@ -232,6 +232,79 @@ export const TripDetails: React.FC = () => {
         )}
       </div>
 
+      {/* Destination Stops Section */}
+      <div style={{ marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#111827', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <MapPin size={20} color="#e11d48" /> Destination Stops ({trip.stops?.length || 0})
+          </h2>
+          <Link to="/discover">
+            <Button variant="outline" size="sm">
+              + Discover & Add Destinations
+            </Button>
+          </Link>
+        </div>
+
+        {trip.stops && trip.stops.length > 0 ? (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
+            {trip.stops.map((stop: any) => (
+              <Card
+                key={stop.id}
+                style={{
+                  padding: '1rem',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: '#ffffff',
+                  border: '1px solid #e5e7eb',
+                }}
+              >
+                <div>
+                  <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
+                    {stop.city}, {stop.country}
+                  </h4>
+                  <span style={{ fontSize: '0.775rem', color: '#6b7280', display: 'block', marginTop: '0.15rem' }}>
+                    {stop.destinationName || 'Trip Stop'}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  title="Remove stop from trip"
+                  onClick={async () => {
+                    try {
+                      await apiRequest(`/trips/${id}/stops/${stop.id}`, { method: 'DELETE' });
+                      fetchTripDetails();
+                    } catch (err: any) {
+                      alert(`Failed to remove stop: ${err.message}`);
+                    }
+                  }}
+                  style={{
+                    background: '#fef2f2',
+                    border: 'none',
+                    borderRadius: 'var(--radius-sm)',
+                    padding: '0.4rem 0.6rem',
+                    color: '#e11d48',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.25rem',
+                    fontSize: '0.775rem',
+                    fontWeight: 700,
+                  }}
+                >
+                  <Trash2 size={14} /> Remove
+                </button>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <Card style={{ textAlign: 'center', padding: '2rem', color: '#6b7280' }}>
+            No destination stops attached to this trip yet.
+          </Card>
+        )}
+      </div>
+
+
       {/* Edit Trip Dialog */}
       <Dialog
         isOpen={isEditing}
