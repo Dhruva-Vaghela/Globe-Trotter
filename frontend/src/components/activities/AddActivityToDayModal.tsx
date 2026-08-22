@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dialog } from '../ui/Dialog';
 import { Button } from '../common/Button';
-import { Calendar, Clock, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin, CheckCircle, AlertCircle, Plus } from 'lucide-react';
 import { apiRequest } from '../../utils/apiClient';
 import { Loader } from '../common/Loader';
 
@@ -48,6 +48,7 @@ export const AddActivityToDayModal: React.FC<AddActivityToDayModalProps> = ({
 
   const [loadingTrips, setLoadingTrips] = useState<boolean>(false);
   const [loadingTripDetails, setLoadingTripDetails] = useState<boolean>(false);
+  const [creatingSection, setCreatingSection] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -76,31 +77,62 @@ export const AddActivityToDayModal: React.FC<AddActivityToDayModalProps> = ({
   }, [isOpen]);
 
   // 2. Fetch full details (sections) for selected trip
+  const fetchTripSections = async (tripId: string) => {
+    setLoadingTripDetails(true);
+    try {
+      const res = await apiRequest<{ data: UserTrip }>(`/trips/${tripId}`);
+      const fetchedTrip = res.data;
+      const secList = fetchedTrip?.sections || [];
+      setSections(secList);
+      if (secList.length > 0) {
+        setSelectedSectionId(secList[0].id);
+      } else {
+        setSelectedSectionId('');
+      }
+    } catch (err) {
+      console.error('Failed to fetch trip sections', err);
+    } finally {
+      setLoadingTripDetails(false);
+    }
+  };
+
   useEffect(() => {
     if (selectedTripId) {
-      setLoadingTripDetails(true);
-      apiRequest<{ data: UserTrip }>(`/trips/${selectedTripId}`)
-        .then((res) => {
-          const fetchedTrip = res.data;
-          const secList = fetchedTrip?.sections || [];
-          setSections(secList);
-          if (secList.length > 0) {
-            setSelectedSectionId(secList[0].id);
-          } else {
-            setSelectedSectionId('');
-          }
-        })
-        .catch((err) => {
-          console.error('Failed to fetch trip sections', err);
-        })
-        .finally(() => {
-          setLoadingTripDetails(false);
-        });
+      fetchTripSections(selectedTripId);
     } else {
       setSections([]);
       setSelectedSectionId('');
     }
   }, [selectedTripId]);
+
+  // Auto-create Day 1 Section if trip has no sections yet
+  const handleAutoCreateSection = async () => {
+    const selectedTrip = trips.find((t) => t.id === selectedTripId);
+    if (!selectedTrip) return;
+
+    setCreatingSection(true);
+    setErrorMsg(null);
+    try {
+      const res = await apiRequest(`/trips/${selectedTrip.id}/sections`, {
+        method: 'POST',
+        body: JSON.stringify({
+          title: `Day 1: ${activity?.name || 'Excursion & Activities'}`,
+          startDate: selectedTrip.startDate,
+          endDate: selectedTrip.startDate,
+          sectionBudget: 5000,
+        }),
+      });
+
+      await fetchTripSections(selectedTrip.id);
+      if (res.data?.id) {
+        setSelectedSectionId(res.data.id);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Failed to auto-create day section for trip');
+    } finally {
+      setCreatingSection(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -127,7 +159,7 @@ export const AddActivityToDayModal: React.FC<AddActivityToDayModalProps> = ({
         }
       );
 
-      setSuccessMsg(`Successfully attached "${activity.name}" to your trip section!`);
+      setSuccessMsg(`Successfully attached "${activity.name}" to your trip itinerary!`);
       setTimeout(() => {
         onClose();
         if (onSuccess) onSuccess();
@@ -255,9 +287,20 @@ export const AddActivityToDayModal: React.FC<AddActivityToDayModalProps> = ({
                     Loading days...
                   </span>
                 ) : sections.length === 0 ? (
-                  <span style={{ fontSize: '0.825rem', color: 'var(--fg-muted, #9ca3af)' }}>
-                    No day sections found for this trip.
-                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fffbebfb', padding: '0.6rem 0.75rem', borderRadius: '6px', border: '1px solid #fef3c7' }}>
+                    <span style={{ fontSize: '0.825rem', color: '#92400e', fontWeight: 600 }}>
+                      No day section found for this trip.
+                    </span>
+                    <Button
+                      type="button"
+                      variant="brand"
+                      size="sm"
+                      isLoading={creatingSection}
+                      onClick={handleAutoCreateSection}
+                    >
+                      <Plus size={14} /> Auto-Create Day 1
+                    </Button>
+                  </div>
                 ) : (
                   <select
                     value={selectedSectionId}
