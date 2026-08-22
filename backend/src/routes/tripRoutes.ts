@@ -8,6 +8,11 @@ import {
   createTripSchema,
   updateTripSchema,
 } from '../controllers/tripController.js';
+import {
+  addStopToTrip,
+  removeStopFromTrip,
+  reorderStops,
+} from '../controllers/destinationController.js';
 import { validate } from '../middlewares/validateMiddleware.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 
@@ -21,4 +26,10 @@ router.get('/:id', getTrip);
 router.put('/:id', validate(updateTripSchema), updateTrip);
 router.delete('/:id', deleteTrip);
 
+// Trip Stops routes (TASK-MOD-04)
+router.post('/:tripId/stops', addStopToTrip);
+router.delete('/:tripId/stops/:stopId', removeStopFromTrip);
+router.put('/:tripId/stops/reorder', reorderStops);
+
 export default router;
+

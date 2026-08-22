@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Home } from '../pages/Home';
+import { DestinationSearch } from '../pages/DestinationSearch';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { Dashboard } from '../pages/Dashboard';
@@ -33,6 +34,7 @@ export const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/discover" element={<DestinationSearch />} />
       <Route
         path="/login"
         element={
