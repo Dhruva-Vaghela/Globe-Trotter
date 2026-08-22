@@ -8,6 +8,10 @@ import { Dashboard } from '../pages/Dashboard';
 import { MyTrips } from '../pages/MyTrips';
 import { CreateTrip } from '../pages/CreateTrip';
 import { TripDetails } from '../pages/TripDetails';
+import { ItineraryBuilder } from '../pages/ItineraryBuilder';
+import { ItineraryView } from '../pages/ItineraryView';
+import { TripBudget } from '../pages/TripBudget';
+import { PublicItinerary } from '../pages/PublicItinerary';
 import { DestinationSearch } from '../pages/DestinationSearch';
 import { ActivitySearch } from '../pages/ActivitySearch';
 import { CalendarPage } from '../pages/Calendar';
@@ -40,6 +44,8 @@ export const AppRoutes: React.FC = () => {
       <Route path="/discover" element={<DestinationSearch />} />
       <Route path="/activities" element={<ActivitySearch />} />
       <Route path="/community" element={<Community />} />
+      <Route path="/share/:token" element={<PublicItinerary />} />
+      <Route path="/public/trips/:id" element={<PublicItinerary />} />
 
       <Route
         path="/login"
@@ -97,6 +103,30 @@ export const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute>
             <TripDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips/:id/builder"
+        element={
+          <ProtectedRoute>
+            <ItineraryBuilder />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips/:id/view"
+        element={
+          <ProtectedRoute>
+            <ItineraryView />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips/:id/budget"
+        element={
+          <ProtectedRoute>
+            <TripBudget />
           </ProtectedRoute>
         }
       />

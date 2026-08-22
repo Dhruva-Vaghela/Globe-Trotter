@@ -487,23 +487,23 @@
 
 ## Backend
 
-* [ ] Public trip identifier
-* [ ] Public itinerary API
-* [ ] Privacy validation
-* [ ] Public trip access rules
-* [ ] Copy trip API
+* [X] Public trip identifier
+* [X] Public itinerary API
+* [X] Privacy validation
+* [X] Public trip access rules
+* [X] Copy trip API
 
 ## Frontend
 
-* [ ] Public itinerary page
-* [ ] Trip summary
-* [ ] Destinations
-* [ ] Activities
-* [ ] Dates
-* [ ] Budget summary
-* [ ] Share button
-* [ ] Copy Trip button
-* [ ] Read-only state
+* [X] Public itinerary page
+* [X] Trip summary
+* [X] Destinations
+* [X] Activities
+* [X] Dates
+* [X] Budget summary
+* [X] Share button
+* [X] Copy Trip button
+* [X] Read-only state
 
 ---
 

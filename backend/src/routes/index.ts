@@ -8,6 +8,7 @@ import activityRoutes from './activityRoutes.js';
 import destinationRoutes from './destinationRoutes.js';
 import calendarRoutes from './calendarRoutes.js';
 import communityRoutes from './communityRoutes.js';
+import publicRoutes from './publicRoutes.js';
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use('/activities', activityRoutes);
 router.use('/destinations', destinationRoutes);
 router.use('/calendar', calendarRoutes);
 router.use('/community', communityRoutes);
+router.use('/', publicRoutes);
 
 export default router;
