@@ -586,24 +586,24 @@
 
 # 19. API
 
-* [ ] Define API conventions
-* [ ] Define response structure
-* [ ] Define error structure
-* [ ] Document authentication endpoints
-* [ ] Document user endpoints
-* [ ] Document trip endpoints
-* [ ] Document destination endpoints
-* [ ] Document activity endpoints
-* [ ] Document itinerary endpoints
-* [ ] Document budget endpoints
-* [ ] Document calendar endpoints
-* [ ] Document community endpoints
-* [ ] Document public itinerary endpoints
-* [ ] Document admin endpoints
-* [ ] Add API authentication
-* [ ] Add API authorization
-* [ ] Test all endpoints
-* [ ] Update API.md
+* [X] Define API conventions
+* [X] Define response structure
+* [X] Define error structure
+* [X] Document authentication endpoints
+* [X] Document user endpoints
+* [X] Document trip endpoints
+* [X] Document destination endpoints
+* [X] Document activity endpoints
+* [X] Document itinerary endpoints
+* [X] Document budget endpoints
+* [X] Document calendar endpoints
+* [X] Document community endpoints
+* [X] Document public itinerary endpoints
+* [X] Document admin endpoints
+* [X] Add API authentication
+* [X] Add API authorization
+* [X] Test all endpoints
+* [X] Update API.md
 
 ---
 
