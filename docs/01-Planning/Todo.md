@@ -334,37 +334,37 @@
 
 ## Backend
 
-* [ ] Itinerary model
-* [ ] Itinerary section model
-* [ ] Itinerary item model
-* [ ] Itinerary controller
-* [ ] Itinerary service
-* [ ] Create itinerary section API
-* [ ] Update itinerary section API
-* [ ] Delete itinerary section API
-* [ ] Add itinerary item API
-* [ ] Remove itinerary item API
-* [ ] Reorder itinerary items API
-* [ ] Assign dates API
-* [ ] Validate itinerary dates
-* [ ] Validate destination relationships
+* [X] Itinerary model
+* [X] Itinerary section model
+* [X] Itinerary item model
+* [X] Itinerary controller
+* [X] Itinerary service
+* [X] Create itinerary section API
+* [X] Update itinerary section API
+* [X] Delete itinerary section API
+* [X] Add itinerary item API
+* [X] Remove itinerary item API
+* [X] Reorder itinerary items API
+* [X] Assign dates API
+* [X] Validate itinerary dates
+* [X] Validate destination relationships
 
 ## Frontend
 
-* [ ] Itinerary builder page
-* [ ] Section component
-* [ ] Add Section action
-* [ ] Edit Section action
-* [ ] Delete Section action
-* [ ] Date range selector
-* [ ] Destination selector
-* [ ] Activity selector
-* [ ] Activity ordering
-* [ ] Drag/reorder support
-* [ ] Section budget field
-* [ ] Save itinerary
-* [ ] Loading state
-* [ ] Error state
+* [X] Itinerary builder page
+* [X] Section component
+* [X] Add Section action
+* [X] Edit Section action
+* [X] Delete Section action
+* [X] Date range selector
+* [X] Destination selector
+* [X] Activity selector
+* [X] Activity ordering
+* [X] Drag/reorder support
+* [X] Section budget field
+* [X] Save itinerary
+* [X] Loading state
+* [X] Error state
 
 ---
 
@@ -372,25 +372,25 @@
 
 ## Backend
 
-* [ ] Itinerary retrieval API
-* [ ] Day-wise itinerary API
-* [ ] Timeline data API
-* [ ] Itinerary summary API
+* [X] Itinerary retrieval API
+* [X] Day-wise itinerary API
+* [X] Timeline data API
+* [X] Itinerary summary API
 
 ## Frontend
 
-* [ ] Itinerary view page
-* [ ] Day-wise layout
-* [ ] Destination headers
-* [ ] Activity blocks
-* [ ] Activity time
-* [ ] Activity cost
-* [ ] Timeline indicators
-* [ ] List/timeline toggle
-* [ ] Search
-* [ ] Filter
-* [ ] Sort
-* [ ] Edit itinerary action
+* [X] Itinerary view page
+* [X] Day-wise layout
+* [X] Destination headers
+* [X] Activity blocks
+* [X] Activity time
+* [X] Activity cost
+* [X] Timeline indicators
+* [X] List/timeline toggle
+* [X] Search
+* [X] Filter
+* [X] Sort
+* [X] Edit itinerary action
 
 ---
 

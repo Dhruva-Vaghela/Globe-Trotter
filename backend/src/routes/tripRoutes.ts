@@ -23,6 +23,8 @@ import {
 import { validate } from '../middlewares/validateMiddleware.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 
+import itineraryRoutes from './itineraryRoutes.js';
+
 const router = Router();
 
 router.use(authMiddleware);
@@ -39,9 +41,7 @@ router.post('/:tripId/stops', addStopToTrip);
 router.delete('/:tripId/stops/:stopId', removeStopFromTrip);
 router.put('/:tripId/stops/reorder', reorderStops);
 
-// Section Itinerary Items routes (TASK-MOD-05)
-router.post('/:tripId/sections/:sectionId/items', validate(addActivityToSectionSchema), addActivityToSection);
-router.delete('/:tripId/items/:itemId', removeItineraryItem);
-router.put('/:tripId/sections/:sectionId/items/reorder', validate(reorderItemsSchema), reorderItineraryItems);
+// Section Itinerary & Timeline routes (TASK-MOD-06 & TASK-MOD-07)
+router.use('/', itineraryRoutes);
 
 export default router;

@@ -9,6 +9,8 @@ import { Dashboard } from '../pages/Dashboard';
 import { MyTrips } from '../pages/MyTrips';
 import { CreateTrip } from '../pages/CreateTrip';
 import { TripDetails } from '../pages/TripDetails';
+import { ItineraryBuilder } from '../pages/ItineraryBuilder';
+import { ItineraryView } from '../pages/ItineraryView';
 import { ActivitySearch } from '../pages/ActivitySearch';
 import { Profile } from '../pages/Profile';
 import { Settings } from '../pages/Settings';
@@ -92,6 +94,22 @@ export const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute>
             <TripDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips/:id/builder"
+        element={
+          <ProtectedRoute>
+            <ItineraryBuilder />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips/:id/view"
+        element={
+          <ProtectedRoute>
+            <ItineraryView />
           </ProtectedRoute>
         }
       />
