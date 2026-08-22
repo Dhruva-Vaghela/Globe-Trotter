@@ -1,32 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Globe,
   MapPin,
-  Search,
   LogOut,
   Settings,
-  ChevronDown,
   Compass,
   Sparkles,
   Luggage,
+  Shield,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../common/Button';
 import { Avatar } from '../ui/Avatar';
 import { Badge } from '../ui/Badge';
-import { CommandPalette } from '../ui/CommandPalette';
 
 export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const [selectedCity, setSelectedCity] = useState('Goa');
-  const [showLocationModal, setShowLocationModal] = useState(false);
-  const [isCommandOpen, setIsCommandOpen] = useState(false);
-
-  const popularCities = ['Goa', 'Mumbai', 'Delhi', 'Bengaluru', 'Paris', 'Tokyo', 'Bali', 'Rome'];
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -46,7 +38,7 @@ export const Navbar: React.FC = () => {
           gap: '1.5rem',
         }}
       >
-        {/* Brand Logo & Location Selector */}
+        {/* Brand Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div
@@ -71,130 +63,32 @@ export const Navbar: React.FC = () => {
               Globe<span style={{ color: '#e11d48' }}>Trotter</span>
             </span>
           </Link>
-
-          {/* Location Selector */}
-          <div style={{ position: 'relative' }}>
-            <button
-              onClick={() => setShowLocationModal(!showLocationModal)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.35rem 0.75rem',
-                borderRadius: '6px',
-                background: '#f3f4f6',
-                border: '1px solid #e5e7eb',
-                color: '#111827',
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              <MapPin size={15} color="#e11d48" />
-              <span>{selectedCity}</span>
-              <ChevronDown size={14} color="#6b7280" />
-            </button>
-
-            {showLocationModal && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '115%',
-                  left: 0,
-                  width: '220px',
-                  background: '#ffffff',
-                  borderRadius: '6px',
-                  boxShadow: 'var(--shadow-md)',
-                  border: '1px solid #e5e7eb',
-                  padding: '0.85rem',
-                  zIndex: 200,
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: '0.725rem',
-                    fontWeight: 700,
-                    color: '#9ca3af',
-                    textTransform: 'uppercase',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  Select City
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem' }}>
-                  {popularCities.map((city) => (
-                    <button
-                      key={city}
-                      onClick={() => {
-                        setSelectedCity(city);
-                        setShowLocationModal(false);
-                      }}
-                      style={{
-                        padding: '0.35rem 0.5rem',
-                        borderRadius: '4px',
-                        background: selectedCity === city ? '#eff6ff' : 'transparent',
-                        color: selectedCity === city ? '#2563eb' : '#111827',
-                        fontWeight: selectedCity === city ? 700 : 500,
-                        fontSize: '0.825rem',
-                        textAlign: 'left',
-                        border: 'none',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {city}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
         </div>
-
-        {/* Command Search Trigger */}
-        <div style={{ flex: 1, maxWidth: '420px' }}>
-          <button
-            onClick={() => setIsCommandOpen(true)}
-            style={{
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0.5rem 0.85rem',
-              borderRadius: '6px',
-              background: '#f9fafb',
-              border: '1px solid #e5e7eb',
-              color: '#6b7280',
-              fontSize: '0.85rem',
-              cursor: 'pointer',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Search size={16} color="#9ca3af" />
-              <span>Search destinations, experiences...</span>
-            </div>
-            <kbd
-              style={{
-                fontSize: '0.7rem',
-                fontWeight: 700,
-                padding: '0.1rem 0.35rem',
-                borderRadius: '4px',
-                background: '#ffffff',
-                border: '1px solid #d1d5db',
-                color: '#6b7280',
-              }}
-            >
-              Ctrl K
-            </kbd>
-          </button>
-        </div>
-
-        {/* Command Palette Modal */}
-        <CommandPalette isOpen={isCommandOpen} onClose={() => setIsCommandOpen(false)} />
 
         {/* Right Nav */}
         <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           {isAuthenticated ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+              {user?.role === 'ADMIN' && (
+                <Link
+                  to="/admin"
+                  style={{
+                    color: isActive('/admin') ? '#ffffff' : '#4f46e5',
+                    fontWeight: 700,
+                    fontSize: '0.825rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    padding: '0.35rem 0.75rem',
+                    borderRadius: '6px',
+                    background: isActive('/admin') ? '#4f46e5' : '#e0e7ff',
+                    border: '1px solid #c7d2fe',
+                  }}
+                >
+                  <Shield size={16} color={isActive('/admin') ? '#ffffff' : '#4f46e5'} /> Admin Dashboard
+                </Link>
+              )}
+
               <Link
                 to="/trips"
                 style={{

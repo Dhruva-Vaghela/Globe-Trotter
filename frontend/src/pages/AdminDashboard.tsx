@@ -173,7 +173,12 @@ export const AdminDashboard: React.FC = () => {
 
       {/* Analytics Charts & Status Distribution */}
       {analytics && (
-        <AnalyticsCharts tripStats={analytics.trips} engagementStats={analytics.engagement} />
+        <AnalyticsCharts
+          tripStats={analytics.trips}
+          engagementStats={analytics.engagement}
+          registrationTrend={analytics.users?.registrationTrend}
+          expenseCategories={analytics.expenseCategories}
+        />
       )}
 
       {/* Popular Cities & Activities */}

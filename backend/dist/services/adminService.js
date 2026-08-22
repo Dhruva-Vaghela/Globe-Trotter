@@ -7,7 +7,11 @@ const client_1 = require("@prisma/client");
 class AdminService {
     static async getDashboardAnalytics() {
         const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-        const [totalUsers, newUsersLast30Days, adminUsers, totalTrips, upcomingTrips, ongoingTrips, completedTrips, publicTrips, totalDestinations, destinationsCostAvg, totalActivities, totalPosts, totalSections, totalExpenses,] = await Promise.all([
+        const w1 = new Date(Date.now() - 28 * 24 * 60 * 60 * 1000);
+        const w2 = new Date(Date.now() - 21 * 24 * 60 * 60 * 1000);
+        const w3 = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
+        const w4 = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        const [totalUsers, newUsersLast30Days, adminUsers, totalTrips, upcomingTrips, ongoingTrips, completedTrips, publicTrips, totalDestinations, destinationsCostAvg, totalActivities, totalPosts, totalSections, totalExpenses, usersW1, usersW2, usersW3, usersW4, expensesGrouped,] = await Promise.all([
             db_js_1.prisma.user.count(),
             db_js_1.prisma.user.count({ where: { createdAt: { gte: thirtyDaysAgo } } }),
             db_js_1.prisma.user.count({ where: { role: client_1.Role.ADMIN } }),
@@ -22,13 +26,34 @@ class AdminService {
             db_js_1.prisma.communityPost.count(),
             db_js_1.prisma.itinerarySection.count(),
             db_js_1.prisma.expense.count(),
+            db_js_1.prisma.user.count({ where: { createdAt: { gte: w1, lt: w2 } } }),
+            db_js_1.prisma.user.count({ where: { createdAt: { gte: w2, lt: w3 } } }),
+            db_js_1.prisma.user.count({ where: { createdAt: { gte: w3, lt: w4 } } }),
+            db_js_1.prisma.user.count({ where: { createdAt: { gte: w4 } } }),
+            db_js_1.prisma.expense.groupBy({
+                by: ['category'],
+                _sum: { amount: true },
+                _count: true,
+            }),
         ]);
+        const expenseCategoryData = (expensesGrouped || []).map((item) => ({
+            category: item.category,
+            totalAmount: Math.round(item._sum?.amount || 0),
+            count: item._count,
+        }));
+        const avgCost = destinationsCostAvg._avg.estimatedDailyCost || 0;
         return {
             users: {
                 total: totalUsers,
                 newLast30Days: newUsersLast30Days,
                 admins: adminUsers,
                 standardUsers: totalUsers - adminUsers,
+                registrationTrend: [
+                    { label: '3-4 Wks Ago', count: usersW1 },
+                    { label: '2-3 Wks Ago', count: usersW2 },
+                    { label: '1-2 Wks Ago', count: usersW3 },
+                    { label: 'This Week', count: usersW4 },
+                ],
             },
             trips: {
                 total: totalTrips,
@@ -39,11 +64,12 @@ class AdminService {
             },
             destinations: {
                 total: totalDestinations,
-                avgDailyCost: Math.round((destinationsCostAvg._avg.estimatedDailyCost || 0) * 100) / 100,
+                avgDailyCost: Math.round(avgCost * 100) / 100,
             },
             activities: {
                 total: totalActivities,
             },
+            expenseCategories: expenseCategoryData,
             engagement: {
                 totalPosts,
                 totalSectionsCreated: totalSections,

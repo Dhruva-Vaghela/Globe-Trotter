@@ -26,8 +26,13 @@ export const Login: React.FC = () => {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       });
-      login(res.data.token, res.data.user);
-      navigate('/dashboard');
+      const loggedUser = res.data.user;
+      login(res.data.token, loggedUser);
+      if (loggedUser?.role === 'ADMIN') {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err: any) {
       setError(err.message || 'Login failed');
     } finally {
