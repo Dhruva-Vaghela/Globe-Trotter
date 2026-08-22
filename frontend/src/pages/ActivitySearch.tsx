@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Layout } from '../components/layout/Layout';
 import { ActivitySearchBar } from '../components/activities/ActivitySearchBar';
 import { ActivityCategoryRail, type CategoryOption } from '../components/activities/ActivityCategoryRail';
 import { ActivityCard, type ActivityCardData } from '../components/activities/ActivityCard';
@@ -85,7 +84,7 @@ export const ActivitySearch: React.FC = () => {
   };
 
   return (
-    <Layout>
+    <>
       <div style={{ paddingBottom: '3rem' }}>
         {/* Top Hero / Header Section */}
         <section
@@ -418,6 +417,6 @@ export const ActivitySearch: React.FC = () => {
           }}
         />
       </div>
-    </Layout>
+    </>
   );
 };

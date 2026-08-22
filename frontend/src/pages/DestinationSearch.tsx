@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Layout } from '../components/layout/Layout';
 import { SearchBar } from '../components/destination/SearchBar';
 import { DestinationFilterBar } from '../components/destination/DestinationFilterBar';
 import { DestinationCard, type DestinationItem } from '../components/destination/DestinationCard';
@@ -82,7 +81,7 @@ export const DestinationSearch: React.FC = () => {
   };
 
   return (
-    <Layout>
+    <>
       <div style={{ background: 'var(--bg-canvas)', minHeight: 'calc(100vh - 120px)', padding: '2rem 0 4rem' }}>
         <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Header Banner */}
@@ -375,6 +374,6 @@ export const DestinationSearch: React.FC = () => {
           </div>
         </Dialog>
       )}
-    </Layout>
+    </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Globe,
   MapPin,
@@ -20,12 +20,18 @@ import { CommandPalette } from '../ui/CommandPalette';
 export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [selectedCity, setSelectedCity] = useState('Goa');
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [isCommandOpen, setIsCommandOpen] = useState(false);
 
   const popularCities = ['Goa', 'Mumbai', 'Delhi', 'Bengaluru', 'Paris', 'Tokyo', 'Bali', 'Rome'];
+
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname === path || location.pathname.startsWith(path + '/');
+  };
 
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 100, background: '#ffffff', borderBottom: '1px solid #e5e7eb' }}>
@@ -192,29 +198,29 @@ export const Navbar: React.FC = () => {
               <Link
                 to="/trips"
                 style={{
-                  color: '#111827',
-                  fontWeight: 600,
+                  color: isActive('/trips') ? '#2563eb' : '#111827',
+                  fontWeight: isActive('/trips') ? 700 : 600,
                   fontSize: '0.875rem',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.35rem',
                 }}
               >
-                <Luggage size={16} color="#2563eb" /> My Trips
+                <Luggage size={16} color={isActive('/trips') ? '#2563eb' : '#4b5563'} /> My Trips
               </Link>
 
               <Link
                 to="/calendar"
                 style={{
-                  color: '#111827',
-                  fontWeight: 600,
+                  color: isActive('/calendar') ? '#2563eb' : '#111827',
+                  fontWeight: isActive('/calendar') ? 700 : 600,
                   fontSize: '0.875rem',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.35rem',
                 }}
               >
-                <Compass size={16} color="#059669" /> Calendar
+                <Compass size={16} color={isActive('/calendar') ? '#2563eb' : '#059669'} /> Calendar
               </Link>
 
               <Link
@@ -225,18 +231,18 @@ export const Navbar: React.FC = () => {
                   gap: '0.5rem',
                   padding: '0.2rem 0.6rem 0.2rem 0.25rem',
                   borderRadius: '6px',
-                  background: '#f3f4f6',
-                  border: '1px solid #e5e7eb',
-                  color: '#111827',
+                  background: isActive('/profile') ? '#eff6ff' : '#f3f4f6',
+                  border: isActive('/profile') ? '1px solid #bfdbfe' : '1px solid #e5e7eb',
+                  color: isActive('/profile') ? '#2563eb' : '#111827',
                   fontSize: '0.85rem',
                   fontWeight: 600,
                 }}
               >
-                <Avatar name={user?.name} size="sm" />
+                <Avatar src={user?.avatarUrl} name={user?.name} size="sm" />
                 <span>{user?.name}</span>
               </Link>
 
-              <Link to="/settings" style={{ color: '#4b5563' }} title="Settings">
+              <Link to="/settings" style={{ color: isActive('/settings') ? '#2563eb' : '#4b5563' }} title="Settings">
                 <Settings size={18} />
               </Link>
 
@@ -285,35 +291,46 @@ export const Navbar: React.FC = () => {
           <Link
             to="/discover"
             style={{
-              color: '#2563eb',
+              color: isActive('/discover') ? '#2563eb' : '#4b5563',
+              fontWeight: isActive('/discover') ? 700 : 500,
               display: 'flex',
               alignItems: 'center',
               gap: '0.35rem',
+              borderBottom: isActive('/discover') ? '2px solid #2563eb' : '2px solid transparent',
+              paddingBottom: '0.2rem',
             }}
           >
-            <Compass size={15} /> Destinations
+            <Compass size={15} color={isActive('/discover') ? '#2563eb' : '#6b7280'} /> Destinations
           </Link>
+
           <Link
             to="/activities"
             style={{
-              color: '#2563eb',
+              color: isActive('/activities') ? '#2563eb' : '#4b5563',
+              fontWeight: isActive('/activities') ? 700 : 500,
               display: 'flex',
               alignItems: 'center',
               gap: '0.35rem',
+              borderBottom: isActive('/activities') ? '2px solid #2563eb' : '2px solid transparent',
+              paddingBottom: '0.2rem',
             }}
           >
-            <Sparkles size={15} color="#e11d48" /> Top Tours & Activities
+            <Sparkles size={15} color={isActive('/activities') ? '#2563eb' : '#e11d48'} /> Top Tours & Activities
           </Link>
+
           <Link
             to="/community"
             style={{
-              color: '#4b5563',
+              color: isActive('/community') ? '#2563eb' : '#4b5563',
+              fontWeight: isActive('/community') ? 700 : 500,
               display: 'flex',
               alignItems: 'center',
               gap: '0.35rem',
+              borderBottom: isActive('/community') ? '2px solid #2563eb' : '2px solid transparent',
+              paddingBottom: '0.2rem',
             }}
           >
-            <MapPin size={15} color="#059669" /> Community Itineraries
+            <MapPin size={15} color={isActive('/community') ? '#2563eb' : '#059669'} /> Community Itineraries
             <Badge variant="brand">Hot</Badge>
           </Link>
         </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { apiRequest } from '../utils/apiClient';
 import { Card } from '../components/common/Card';
@@ -11,6 +12,7 @@ import { Plus, MapPin, Calendar, Luggage, DollarSign, ArrowRight } from 'lucide-
 
 export const Dashboard: React.FC = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [summary, setSummary] = useState<any>(null);
   const [tripsData, setTripsData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -62,7 +64,7 @@ export const Dashboard: React.FC = () => {
               </p>
             </div>
           </div>
-          <Button variant="brand" size="md">
+          <Button variant="brand" size="md" onClick={() => navigate('/trips/new')}>
             <Plus size={16} /> Plan New Trip
           </Button>
         </div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Layout } from '../components/layout/Layout';
 import { CommunityFeedCard, type CommunityPostFeedData } from '../components/community/CommunityFeedCard';
 import { PublicTripDetailModal } from '../components/community/PublicTripDetailModal';
 import { PublishTripModal } from '../components/community/PublishTripModal';
@@ -73,7 +72,7 @@ export const Community: React.FC = () => {
   };
 
   return (
-    <Layout>
+    <>
       <div style={{ paddingBottom: '3rem' }}>
         {/* Top Hero Banner */}
         <section
@@ -328,6 +327,6 @@ export const Community: React.FC = () => {
           onSuccess={() => fetchFeed()}
         />
       </div>
-    </Layout>
+    </>
   );
 };

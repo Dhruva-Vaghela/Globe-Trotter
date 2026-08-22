@@ -12,11 +12,14 @@ const AppError_js_1 = require("../utils/AppError.js");
 const ApiResponse_js_1 = require("../utils/ApiResponse.js");
 const authService_js_1 = require("../services/authService.js");
 const userService_js_1 = require("../services/userService.js");
+const uploadService_js_1 = require("../services/uploadService.js");
 exports.registerSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z.string().min(2, 'Name must be at least 2 characters'),
         email: zod_1.z.string().email('Invalid email address'),
         password: zod_1.z.string().min(6, 'Password must be at least 6 characters'),
+        avatarUrl: zod_1.z.string().optional(),
+        profileImage: zod_1.z.string().optional(),
     }),
 });
 exports.loginSchema = zod_1.z.object({
@@ -38,10 +41,24 @@ exports.resetPasswordSchema = zod_1.z.object({
 });
 async function register(req, res, next) {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, avatarUrl, profileImage } = req.body;
         const existingUser = await db_js_1.prisma.user.findUnique({ where: { email } });
         if (existingUser) {
             throw new AppError_js_1.AppError('User with this email already exists', 409);
+        }
+        let finalAvatarUrl = avatarUrl || null;
+        // If base64 profile image is provided during signup, upload directly to Cloudinary
+        if (profileImage) {
+            try {
+                const uploadRes = await uploadService_js_1.UploadService.uploadImage({
+                    base64Data: profileImage,
+                    folder: 'globetrotter_avatars',
+                });
+                finalAvatarUrl = uploadRes.imageUrl;
+            }
+            catch (uploadErr) {
+                console.error('Failed to upload registration avatar to Cloudinary:', uploadErr);
+            }
         }
         const passwordHash = await authService_js_1.AuthService.hashPassword(password);
         const user = await db_js_1.prisma.user.create({
@@ -49,6 +66,7 @@ async function register(req, res, next) {
                 name,
                 email,
                 passwordHash,
+                avatarUrl: finalAvatarUrl,
                 preference: {
                     create: {
                         defaultCurrency: 'USD',

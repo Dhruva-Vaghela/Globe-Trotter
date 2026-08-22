@@ -1,27 +1,39 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UploadService = void 0;
-const crypto_1 = __importDefault(require("crypto"));
+const cloudinary_1 = require("cloudinary");
+const env_js_1 = require("../config/env.js");
 const AppError_js_1 = require("../utils/AppError.js");
+// Configure Cloudinary credentials
+cloudinary_1.v2.config({
+    cloud_name: env_js_1.ENV.CLOUDINARY_CLOUD_NAME,
+    api_key: env_js_1.ENV.CLOUDINARY_API_KEY,
+    api_secret: env_js_1.ENV.CLOUDINARY_API_SECRET,
+});
 class UploadService {
     static async uploadImage(input) {
-        if (!input.base64Data && !input.filename) {
-            throw new AppError_js_1.AppError('Image file or base64 data payload is required', 400);
+        if (!input.base64Data) {
+            throw new AppError_js_1.AppError('Image base64 data payload is required', 400);
         }
-        const uniqueId = crypto_1.default.randomUUID();
-        const ext = input.filename ? input.filename.split('.').pop() || 'jpg' : 'jpg';
-        const filename = `img_${uniqueId}.${ext}`;
-        // Return structured response with mock CDN/local URL & metadata
-        return {
-            success: true,
-            imageUrl: `https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80`,
-            filename,
-            sizeBytes: input.base64Data ? Math.round((input.base64Data.length * 3) / 4) : 102400,
-            uploadedAt: new Date().toISOString(),
-        };
+        try {
+            const folderName = input.folder || 'globetrotter_uploads';
+            const uploadResponse = await cloudinary_1.v2.uploader.upload(input.base64Data, {
+                folder: folderName,
+                resource_type: 'auto',
+            });
+            return {
+                success: true,
+                imageUrl: uploadResponse.secure_url,
+                publicId: uploadResponse.public_id,
+                filename: input.filename || `${uploadResponse.public_id}.${uploadResponse.format || 'jpg'}`,
+                sizeBytes: uploadResponse.bytes,
+                uploadedAt: uploadResponse.created_at || new Date().toISOString(),
+            };
+        }
+        catch (err) {
+            console.error('Cloudinary Upload Error:', err);
+            throw new AppError_js_1.AppError(err.message || 'Failed to upload image to Cloudinary', 500);
+        }
     }
 }
 exports.UploadService = UploadService;

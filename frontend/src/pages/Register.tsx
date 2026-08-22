@@ -5,17 +5,36 @@ import { apiRequest } from '../utils/apiClient';
 import { Button } from '../components/common/Button';
 import { Input } from '../components/common/Input';
 import { Card } from '../components/common/Card';
-import { Globe } from 'lucide-react';
+import { Globe, Camera, Upload } from 'lucide-react';
 
 export const Register: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [profileImage, setProfileImage] = useState<string>('');
+  const [imagePreview, setImagePreview] = useState<string>('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Image file size must be less than 5MB');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result as string;
+        setProfileImage(base64);
+        setImagePreview(base64);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +44,7 @@ export const Register: React.FC = () => {
     try {
       const res = await apiRequest('/auth/register', {
         method: 'POST',
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, profileImage }),
       });
       login(res.data.token, res.data.user);
       navigate('/dashboard');
@@ -37,7 +56,7 @@ export const Register: React.FC = () => {
   };
 
   return (
-    <div className="container animate-fade-in" style={{ maxWidth: '440px', padding: '3.5rem 1rem' }}>
+    <div className="container animate-fade-in" style={{ maxWidth: '460px', padding: '3.5rem 1rem' }}>
       <Card style={{ padding: '2.5rem 2rem' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', marginBottom: '1.75rem' }}>
           <div style={{ padding: '0.6rem', borderRadius: 'var(--radius-sm)', background: 'var(--brand-red)', color: '#ffffff' }}>
@@ -66,6 +85,64 @@ export const Register: React.FC = () => {
         )}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          {/* Profile Photo Upload Field */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0.5rem' }}>
+            <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--fg-secondary)', marginBottom: '0.5rem' }}>
+              Profile Photo (Stored on Cloudinary) *
+            </label>
+            <div style={{ position: 'relative' }}>
+              <div
+                style={{
+                  width: '90px',
+                  height: '90px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  background: '#f3f4f6',
+                  border: '2px dashed #cbd5e1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {imagePreview ? (
+                  <img src={imagePreview} alt="Profile Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <Camera size={32} color="#94a3b8" />
+                )}
+              </div>
+              <label
+                htmlFor="avatar-upload"
+                style={{
+                  position: 'absolute',
+                  bottom: '0',
+                  right: '0',
+                  background: 'var(--primary-color)',
+                  color: '#ffffff',
+                  padding: '0.4rem',
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  boxShadow: 'var(--shadow-sm)',
+                }}
+                title="Upload Profile Picture"
+              >
+                <Upload size={14} />
+              </label>
+              <input
+                id="avatar-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: 'none' }}
+              />
+            </div>
+            {profileImage && (
+              <span style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 700, marginTop: '0.4rem' }}>
+                ✓ Profile image attached (Will upload to Cloudinary)
+              </span>
+            )}
+          </div>
+
           <Input
             label="Full Name"
             type="text"
