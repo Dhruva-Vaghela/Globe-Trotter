@@ -15,6 +15,10 @@ import {
   Edit3,
   Trash2,
   DollarSign,
+  CheckCircle,
+  Eye,
+  Sliders,
+  PieChart,
 } from 'lucide-react';
 
 export const TripDetails: React.FC = () => {
@@ -71,6 +75,20 @@ export const TripDetails: React.FC = () => {
       alert(`Error updating trip: ${err.message}`);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleFinishTrip = async () => {
+    try {
+      const res = await apiRequest(`/trips/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ status: 'COMPLETED' }),
+      });
+      setTrip(res.data);
+      setStatus('COMPLETED');
+      alert('🎉 Trip marked as Completed! Saved into your Past Trips History.');
+    } catch (err: any) {
+      alert(`Failed to complete trip: ${err.message}`);
     }
   };
 
@@ -155,7 +173,7 @@ export const TripDetails: React.FC = () => {
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)' }} />
           <div style={{ position: 'absolute', bottom: '1.25rem', left: '1.5rem', color: '#ffffff' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
-              <Badge variant="brand">{trip.status}</Badge>
+              <Badge variant={trip.status === 'COMPLETED' ? 'success' : 'brand'}>{trip.status}</Badge>
               {trip.stops && trip.stops[0] && (
                 <span style={{ fontSize: '0.85rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
                   <MapPin size={14} color="#e11d48" /> {trip.stops[0].city}, {trip.stops[0].country}
@@ -175,7 +193,15 @@ export const TripDetails: React.FC = () => {
             </span>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            {trip.status !== 'COMPLETED' ? (
+              <Button variant="success" size="sm" onClick={handleFinishTrip}>
+                <CheckCircle size={15} /> Finish & Complete Trip
+              </Button>
+            ) : (
+              <Badge variant="success">✓ Saved to Past Trips History</Badge>
+            )}
+
             <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
               <Edit3 size={15} /> Edit Details
             </Button>
@@ -186,11 +212,31 @@ export const TripDetails: React.FC = () => {
         </div>
       </Card>
 
+      {/* Quick Access Module Hub */}
+      <Card style={{ marginBottom: '2rem', padding: '1.25rem' }}>
+        <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#111827', marginBottom: '0.85rem' }}>
+          Itinerary & Budget Modules
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
+          <Button variant="secondary" size="md" onClick={() => navigate(`/trips/${id}/view`)}>
+            <Eye size={16} color="#2563eb" /> View Full Itinerary & Timeline
+          </Button>
+
+          <Button variant="secondary" size="md" onClick={() => navigate(`/trips/${id}/builder`)}>
+            <Sliders size={16} color="#059669" /> Open Itinerary Builder
+          </Button>
+
+          <Button variant="secondary" size="md" onClick={() => navigate(`/trips/${id}/budget`)}>
+            <PieChart size={16} color="#d97706" /> Expense Tracker & Budget
+          </Button>
+        </div>
+      </Card>
+
       {/* Budget Breakdown & Progress Card */}
       <Card style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#111827', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <DollarSign size={18} color="#059669" /> Budget & Expense Tracker
+            <DollarSign size={18} color="#059669" /> Budget & Expense Overview
           </h2>
           <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#059669' }}>
             ₹{totalSpent.toLocaleString()} / {budgetGoal > 0 ? `₹${budgetGoal.toLocaleString()}` : 'No limit'}
@@ -219,9 +265,14 @@ export const TripDetails: React.FC = () => {
 
       {/* Day-Wise Itinerary Sections */}
       <div style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#111827', marginBottom: '1rem' }}>
-          Day-Wise Itinerary
-        </h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#111827' }}>
+            Day-Wise Itinerary
+          </h2>
+          <Button variant="outline" size="sm" onClick={() => navigate(`/trips/${id}/view`)}>
+            <Eye size={15} /> View Full Itinerary
+          </Button>
+        </div>
 
         {accordionItems.length > 0 ? (
           <Accordion items={accordionItems} defaultOpenId={accordionItems[0]?.id} />
@@ -303,7 +354,6 @@ export const TripDetails: React.FC = () => {
           </Card>
         )}
       </div>
-
 
       {/* Edit Trip Dialog */}
       <Dialog

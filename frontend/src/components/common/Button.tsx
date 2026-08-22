@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'brand';
+  variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'brand' | 'success';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
   children: React.ReactNode;
@@ -49,6 +49,10 @@ export const Button: React.FC<ButtonProps> = ({
     },
     danger: {
       background: 'var(--status-danger)',
+      color: '#ffffff',
+    },
+    success: {
+      background: '#059669',
       color: '#ffffff',
     },
   };
