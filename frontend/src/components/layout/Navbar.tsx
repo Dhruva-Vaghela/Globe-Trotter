@@ -280,9 +280,9 @@ export const Navbar: React.FC = () => {
             <Compass size={15} /> Destinations
           </Link>
           <Link
-            to="/discover?category=activities"
+            to="/activities"
             style={{
-              color: '#4b5563',
+              color: '#2563eb',
               display: 'flex',
               alignItems: 'center',
               gap: '0.35rem',

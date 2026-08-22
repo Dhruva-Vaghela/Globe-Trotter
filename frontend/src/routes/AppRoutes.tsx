@@ -8,6 +8,7 @@ import { Dashboard } from '../pages/Dashboard';
 import { MyTrips } from '../pages/MyTrips';
 import { CreateTrip } from '../pages/CreateTrip';
 import { TripDetails } from '../pages/TripDetails';
+import { ActivitySearch } from '../pages/ActivitySearch';
 import { Profile } from '../pages/Profile';
 import { Settings } from '../pages/Settings';
 import { ForgotPassword } from '../pages/ForgotPassword';
@@ -92,6 +93,8 @@ export const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         }
       />
+
+      <Route path="/activities" element={<ActivitySearch />} />
 
       <Route
         path="/profile"
