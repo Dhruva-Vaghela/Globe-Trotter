@@ -227,38 +227,38 @@
 
 ## Backend
 
-* [ ] Trip model
-* [ ] Trip destination/stop model
-* [ ] Trip controller
-* [ ] Trip service
-* [ ] Create trip API
-* [ ] Get trip API
-* [ ] List trips API
-* [ ] Update trip API
-* [ ] Delete trip API
-* [ ] Trip status calculation
-* [ ] Trip ownership authorization
-* [ ] Trip search API
-* [ ] Trip filter API
-* [ ] Trip sort API
+* [X] Trip model
+* [X] Trip destination/stop model
+* [X] Trip controller
+* [X] Trip service
+* [X] Create trip API
+* [X] Get trip API
+* [X] List trips API
+* [X] Update trip API
+* [X] Delete trip API
+* [X] Trip status calculation
+* [X] Trip ownership authorization
+* [X] Trip search API
+* [X] Trip filter API
+* [X] Trip sort API
 
 ## Frontend
 
-* [ ] My Trips page
-* [ ] Trip list
-* [ ] Trip card
-* [ ] Create trip page
-* [ ] Trip detail page
-* [ ] Edit trip page
-* [ ] Delete trip confirmation
-* [ ] Ongoing trips section
-* [ ] Upcoming trips section
-* [ ] Completed trips section
-* [ ] Search
-* [ ] Filter
-* [ ] Sort
-* [ ] Group by
-* [ ] Empty state
+* [X] My Trips page
+* [X] Trip list
+* [X] Trip card
+* [X] Create trip page
+* [X] Trip detail page
+* [X] Edit trip page
+* [X] Delete trip confirmation
+* [X] Ongoing trips section
+* [X] Upcoming trips section
+* [X] Completed trips section
+* [X] Search
+* [X] Filter
+* [X] Sort
+* [X] Group by
+* [X] Empty state
 
 ---
 

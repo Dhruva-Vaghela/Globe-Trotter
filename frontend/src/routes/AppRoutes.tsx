@@ -5,6 +5,9 @@ import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { Dashboard } from '../pages/Dashboard';
+import { MyTrips } from '../pages/MyTrips';
+import { CreateTrip } from '../pages/CreateTrip';
+import { TripDetails } from '../pages/TripDetails';
 import { Profile } from '../pages/Profile';
 import { Settings } from '../pages/Settings';
 import { ForgotPassword } from '../pages/ForgotPassword';
@@ -64,6 +67,32 @@ export const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/trips"
+        element={
+          <ProtectedRoute>
+            <MyTrips />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips/new"
+        element={
+          <ProtectedRoute>
+            <CreateTrip />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips/:id"
+        element={
+          <ProtectedRoute>
+            <TripDetails />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/profile"
         element={

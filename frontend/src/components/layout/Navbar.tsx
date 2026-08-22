@@ -190,7 +190,7 @@ export const Navbar: React.FC = () => {
           {isAuthenticated ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
               <Link
-                to="/dashboard"
+                to="/trips"
                 style={{
                   color: '#111827',
                   fontWeight: 600,
@@ -254,7 +254,7 @@ export const Navbar: React.FC = () => {
         </nav>
       </div>
 
-      {/* Product Sub-Header Rail (Hidden Scrollbar) */}
+      {/* Product Sub-Header Rail */}
       <div
         style={{
           background: '#ffffff',
