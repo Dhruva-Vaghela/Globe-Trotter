@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
 import { Layout } from './components/layout/Layout';
 import { AppRoutes } from './routes/AppRoutes';
 
@@ -8,9 +9,11 @@ export const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Layout>
-          <AppRoutes />
-        </Layout>
+        <ToastProvider>
+          <Layout>
+            <AppRoutes />
+          </Layout>
+        </ToastProvider>
       </AuthProvider>
     </BrowserRouter>
   );

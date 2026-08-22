@@ -541,21 +541,21 @@
 
 # 17. Cross-Module Features
 
-* [ ] Global search where required
-* [ ] Global loading indicators
-* [ ] Global error handling
-* [ ] Toast/notification system
-* [ ] Confirmation dialogs
-* [ ] Responsive design
-* [ ] Image optimization
-* [ ] Image upload/storage
-* [ ] Pagination
-* [ ] Sorting
-* [ ] Filtering
-* [ ] Empty states
-* [ ] Skeleton loaders
-* [ ] Form validation
-* [ ] Accessibility improvements
+* [X] Global search where required
+* [X] Global loading indicators
+* [X] Global error handling
+* [X] Toast/notification system
+* [X] Confirmation dialogs
+* [X] Responsive design
+* [X] Image optimization
+* [X] Image upload/storage
+* [X] Pagination
+* [X] Sorting
+* [X] Filtering
+* [X] Empty states
+* [X] Skeleton loaders
+* [X] Form validation
+* [X] Accessibility improvements
 
 ---
 

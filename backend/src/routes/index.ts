@@ -10,6 +10,8 @@ import calendarRoutes from './calendarRoutes.js';
 import communityRoutes from './communityRoutes.js';
 import publicRoutes from './publicRoutes.js';
 import adminRoutes from './adminRoutes.js';
+import uploadRoutes from './uploadRoutes.js';
+import searchRoutes from './searchRoutes.js';
 
 const router = Router();
 
@@ -23,6 +25,8 @@ router.use('/destinations', destinationRoutes);
 router.use('/calendar', calendarRoutes);
 router.use('/community', communityRoutes);
 router.use('/admin', adminRoutes);
+router.use('/upload', uploadRoutes);
+router.use('/search', searchRoutes);
 router.use('/', publicRoutes);
 
 export default router;
