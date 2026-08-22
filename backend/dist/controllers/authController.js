@@ -54,10 +54,16 @@ async function register(req, res, next) {
                     base64Data: profileImage,
                     folder: 'globetrotter_avatars',
                 });
-                finalAvatarUrl = uploadRes.imageUrl;
+                if (uploadRes && uploadRes.imageUrl) {
+                    finalAvatarUrl = uploadRes.imageUrl;
+                }
+                else {
+                    finalAvatarUrl = profileImage;
+                }
             }
             catch (uploadErr) {
-                console.error('Failed to upload registration avatar to Cloudinary:', uploadErr);
+                console.error('Cloudinary upload fallback to direct image string:', uploadErr);
+                finalAvatarUrl = profileImage;
             }
         }
         const passwordHash = await authService_js_1.AuthService.hashPassword(password);

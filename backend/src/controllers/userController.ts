@@ -5,10 +5,13 @@ import { UserService } from '../services/userService.js';
 import { sendResponse } from '../utils/ApiResponse.js';
 import { AppError } from '../utils/AppError.js';
 
+import { UploadService } from '../services/uploadService.js';
+
 export const updateProfileSchema = z.object({
   body: z.object({
     name: z.string().min(2).optional(),
-    avatarUrl: z.string().url().or(z.string().length(0)).optional(),
+    avatarUrl: z.string().optional(),
+    profileImage: z.string().optional(),
     bio: z.string().max(500).optional(),
   }),
 });
@@ -34,7 +37,32 @@ export async function getProfile(req: AuthRequest, res: Response, next: NextFunc
 export async function updateProfile(req: AuthRequest, res: Response, next: NextFunction) {
   try {
     if (!req.user) throw new AppError('Unauthorized', 401);
-    const updated = await UserService.updateProfile(req.user.userId, req.body);
+    const { name, avatarUrl, profileImage, bio } = req.body;
+    let finalAvatarUrl = avatarUrl;
+
+    const imgToUpload = profileImage || (avatarUrl?.startsWith('data:') ? avatarUrl : null);
+    if (imgToUpload) {
+      try {
+        const uploadRes = await UploadService.uploadImage({
+          base64Data: imgToUpload,
+          folder: 'globetrotter_avatars',
+        });
+        if (uploadRes && uploadRes.imageUrl) {
+          finalAvatarUrl = uploadRes.imageUrl;
+        } else {
+          finalAvatarUrl = imgToUpload;
+        }
+      } catch (err) {
+        console.error('Cloudinary update profile upload fallback:', err);
+        finalAvatarUrl = imgToUpload;
+      }
+    }
+
+    const updated = await UserService.updateProfile(req.user.userId, {
+      name,
+      bio,
+      ...(finalAvatarUrl !== undefined && { avatarUrl: finalAvatarUrl }),
+    });
     return sendResponse(res, 200, 'Profile updated successfully', updated);
   } catch (err) {
     next(err);

@@ -86,61 +86,65 @@ export const Register: React.FC = () => {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {/* Profile Photo Upload Field */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0.5rem' }}>
-            <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--fg-secondary)', marginBottom: '0.5rem' }}>
-              Profile Photo (Stored on Cloudinary) *
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '0.5rem', gap: '0.6rem' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: 700, color: '#334155' }}>
+              Profile Photo
             </label>
-            <div style={{ position: 'relative' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <div
                 style={{
-                  width: '90px',
-                  height: '90px',
+                  width: '80px',
+                  height: '80px',
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  background: '#f3f4f6',
-                  border: '2px dashed #cbd5e1',
+                  background: '#f1f5f9',
+                  border: '2px solid #e2e8f0',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  flexShrink: 0,
                 }}
               >
                 {imagePreview ? (
                   <img src={imagePreview} alt="Profile Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <Camera size={32} color="#94a3b8" />
+                  <Camera size={30} color="#94a3b8" />
                 )}
               </div>
-              <label
-                htmlFor="avatar-upload"
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  right: '0',
-                  background: 'var(--primary-color)',
-                  color: '#ffffff',
-                  padding: '0.4rem',
-                  borderRadius: '50%',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  boxShadow: 'var(--shadow-sm)',
-                }}
-                title="Upload Profile Picture"
-              >
-                <Upload size={14} />
-              </label>
-              <input
-                id="avatar-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                style={{ display: 'none' }}
-              />
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <label
+                  htmlFor="avatar-upload"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    padding: '0.5rem 0.9rem',
+                    borderRadius: '6px',
+                    background: '#ffffff',
+                    border: '1px solid #cbd5e1',
+                    color: '#0f172a',
+                    fontSize: '0.85rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    boxShadow: 'var(--shadow-sm)',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <Upload size={15} color="#2563eb" /> Choose File
+                </label>
+                <input
+                  id="avatar-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: 'none' }}
+                />
+                <span style={{ fontSize: '0.75rem', color: 'var(--fg-muted)' }}>
+                  {profileImage ? '✓ Image selected' : 'JPEG, PNG or WEBP (Max 5MB)'}
+                </span>
+              </div>
             </div>
-            {profileImage && (
-              <span style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 700, marginTop: '0.4rem' }}>
-                ✓ Profile image attached (Will upload to Cloudinary)
-              </span>
-            )}
           </div>
 
           <Input

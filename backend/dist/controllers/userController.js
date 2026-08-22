@@ -9,10 +9,12 @@ const zod_1 = require("zod");
 const userService_js_1 = require("../services/userService.js");
 const ApiResponse_js_1 = require("../utils/ApiResponse.js");
 const AppError_js_1 = require("../utils/AppError.js");
+const uploadService_js_1 = require("../services/uploadService.js");
 exports.updateProfileSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z.string().min(2).optional(),
-        avatarUrl: zod_1.z.string().url().or(zod_1.z.string().length(0)).optional(),
+        avatarUrl: zod_1.z.string().optional(),
+        profileImage: zod_1.z.string().optional(),
         bio: zod_1.z.string().max(500).optional(),
     }),
 });
@@ -38,7 +40,32 @@ async function updateProfile(req, res, next) {
     try {
         if (!req.user)
             throw new AppError_js_1.AppError('Unauthorized', 401);
-        const updated = await userService_js_1.UserService.updateProfile(req.user.userId, req.body);
+        const { name, avatarUrl, profileImage, bio } = req.body;
+        let finalAvatarUrl = avatarUrl;
+        const imgToUpload = profileImage || (avatarUrl?.startsWith('data:') ? avatarUrl : null);
+        if (imgToUpload) {
+            try {
+                const uploadRes = await uploadService_js_1.UploadService.uploadImage({
+                    base64Data: imgToUpload,
+                    folder: 'globetrotter_avatars',
+                });
+                if (uploadRes && uploadRes.imageUrl) {
+                    finalAvatarUrl = uploadRes.imageUrl;
+                }
+                else {
+                    finalAvatarUrl = imgToUpload;
+                }
+            }
+            catch (err) {
+                console.error('Cloudinary update profile upload fallback:', err);
+                finalAvatarUrl = imgToUpload;
+            }
+        }
+        const updated = await userService_js_1.UserService.updateProfile(req.user.userId, {
+            name,
+            bio,
+            ...(finalAvatarUrl !== undefined && { avatarUrl: finalAvatarUrl }),
+        });
         return (0, ApiResponse_js_1.sendResponse)(res, 200, 'Profile updated successfully', updated);
     }
     catch (err) {
