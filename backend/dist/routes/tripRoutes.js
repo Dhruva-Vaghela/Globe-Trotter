@@ -9,6 +9,7 @@ const destinationController_js_1 = require("../controllers/destinationController
 const validateMiddleware_js_1 = require("../middlewares/validateMiddleware.js");
 const authMiddleware_js_1 = require("../middlewares/authMiddleware.js");
 const itineraryRoutes_js_1 = __importDefault(require("./itineraryRoutes.js"));
+const budgetRoutes_js_1 = __importDefault(require("./budgetRoutes.js"));
 const router = (0, express_1.Router)();
 router.use(authMiddleware_js_1.authMiddleware);
 // Trip routes
@@ -21,6 +22,8 @@ router.delete('/:id', tripController_js_1.deleteTrip);
 router.post('/:tripId/stops', destinationController_js_1.addStopToTrip);
 router.delete('/:tripId/stops/:stopId', destinationController_js_1.removeStopFromTrip);
 router.put('/:tripId/stops/reorder', destinationController_js_1.reorderStops);
+// Budget & Expense routes (TASK-MOD-08)
+router.use('/', budgetRoutes_js_1.default);
 // Section Itinerary & Timeline routes (TASK-MOD-06 & TASK-MOD-07)
 router.use('/', itineraryRoutes_js_1.default);
 exports.default = router;

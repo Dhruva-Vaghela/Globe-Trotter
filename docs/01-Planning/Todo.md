@@ -398,33 +398,33 @@
 
 ## Backend
 
-* [ ] Expense model
-* [ ] Expense category model
-* [ ] Budget model
-* [ ] Expense controller
-* [ ] Expense service
-* [ ] Add expense API
-* [ ] Update expense API
-* [ ] Delete expense API
-* [ ] Trip total calculation
-* [ ] Section total calculation
-* [ ] Daily average calculation
-* [ ] Budget status API
+* [X] Expense model
+* [X] Expense category model
+* [X] Budget model
+* [X] Expense controller
+* [X] Expense service
+* [X] Add expense API
+* [X] Update expense API
+* [X] Delete expense API
+* [X] Trip total calculation
+* [X] Section total calculation
+* [X] Daily average calculation
+* [X] Budget status API
 
 ## Frontend
 
-* [ ] Budget section
-* [ ] Budget overview
-* [ ] Expense breakdown
-* [ ] Transport expenses
-* [ ] Accommodation expenses
-* [ ] Activity expenses
-* [ ] Meal expenses
-* [ ] Miscellaneous expenses
-* [ ] Total estimated cost
-* [ ] Average daily cost
-* [ ] Budget warning
-* [ ] Charts/visualizations
+* [X] Budget section
+* [X] Budget overview
+* [X] Expense breakdown
+* [X] Transport expenses
+* [X] Accommodation expenses
+* [X] Activity expenses
+* [X] Meal expenses
+* [X] Miscellaneous expenses
+* [X] Total estimated cost
+* [X] Average daily cost
+* [X] Budget warning
+* [X] Charts/visualizations
 
 ---
 

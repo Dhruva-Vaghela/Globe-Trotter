@@ -24,6 +24,7 @@ import { validate } from '../middlewares/validateMiddleware.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 
 import itineraryRoutes from './itineraryRoutes.js';
+import budgetRoutes from './budgetRoutes.js';
 
 const router = Router();
 
@@ -40,6 +41,9 @@ router.delete('/:id', deleteTrip);
 router.post('/:tripId/stops', addStopToTrip);
 router.delete('/:tripId/stops/:stopId', removeStopFromTrip);
 router.put('/:tripId/stops/reorder', reorderStops);
+
+// Budget & Expense routes (TASK-MOD-08)
+router.use('/', budgetRoutes);
 
 // Section Itinerary & Timeline routes (TASK-MOD-06 & TASK-MOD-07)
 router.use('/', itineraryRoutes);

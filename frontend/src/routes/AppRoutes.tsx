@@ -11,6 +11,7 @@ import { CreateTrip } from '../pages/CreateTrip';
 import { TripDetails } from '../pages/TripDetails';
 import { ItineraryBuilder } from '../pages/ItineraryBuilder';
 import { ItineraryView } from '../pages/ItineraryView';
+import { TripBudget } from '../pages/TripBudget';
 import { ActivitySearch } from '../pages/ActivitySearch';
 import { Profile } from '../pages/Profile';
 import { Settings } from '../pages/Settings';
@@ -110,6 +111,14 @@ export const AppRoutes: React.FC = () => {
         element={
           <ProtectedRoute>
             <ItineraryView />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips/:id/budget"
+        element={
+          <ProtectedRoute>
+            <TripBudget />
           </ProtectedRoute>
         }
       />
