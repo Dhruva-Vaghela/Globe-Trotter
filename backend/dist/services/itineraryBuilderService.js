@@ -22,8 +22,12 @@ class ItineraryBuilderService {
         const secEnd = new Date(input.endDate);
         const tripStart = new Date(trip.startDate);
         const tripEnd = new Date(trip.endDate);
-        // Date validation: Section dates must fall within trip startDate and endDate
-        if (secStart < tripStart || secEnd > tripEnd || secStart > secEnd) {
+        // Normalize date bounds for day-level comparison
+        const secStartDay = new Date(secStart.getFullYear(), secStart.getMonth(), secStart.getDate(), 0, 0, 0);
+        const secEndDay = new Date(secEnd.getFullYear(), secEnd.getMonth(), secEnd.getDate(), 23, 59, 59);
+        const tripStartDay = new Date(tripStart.getFullYear(), tripStart.getMonth(), tripStart.getDate(), 0, 0, 0);
+        const tripEndDay = new Date(tripEnd.getFullYear(), tripEnd.getMonth(), tripEnd.getDate(), 23, 59, 59);
+        if (secStartDay < tripStartDay || secEndDay > tripEndDay || secStartDay > secEndDay) {
             throw new AppError_js_1.AppError(`Section dates (${secStart.toISOString().split('T')[0]} to ${secEnd.toISOString().split('T')[0]}) must fall within trip dates (${tripStart.toISOString().split('T')[0]} to ${tripEnd.toISOString().split('T')[0]})`, 400);
         }
         const existingCount = await db_js_1.prisma.itinerarySection.count({
@@ -55,7 +59,11 @@ class ItineraryBuilderService {
         const newEnd = input.endDate ? new Date(input.endDate) : existingSection.endDate;
         const tripStart = new Date(trip.startDate);
         const tripEnd = new Date(trip.endDate);
-        if (newStart < tripStart || newEnd > tripEnd || newStart > newEnd) {
+        const newStartDay = new Date(newStart.getFullYear(), newStart.getMonth(), newStart.getDate(), 0, 0, 0);
+        const newEndDay = new Date(newEnd.getFullYear(), newEnd.getMonth(), newEnd.getDate(), 23, 59, 59);
+        const tripStartDay = new Date(tripStart.getFullYear(), tripStart.getMonth(), tripStart.getDate(), 0, 0, 0);
+        const tripEndDay = new Date(tripEnd.getFullYear(), tripEnd.getMonth(), tripEnd.getDate(), 23, 59, 59);
+        if (newStartDay < tripStartDay || newEndDay > tripEndDay || newStartDay > newEndDay) {
             throw new AppError_js_1.AppError(`Section dates must fall within trip dates (${tripStart.toISOString().split('T')[0]} to ${tripEnd.toISOString().split('T')[0]})`, 400);
         }
         return await db_js_1.prisma.itinerarySection.update({
@@ -134,7 +142,6 @@ class ItineraryBuilderService {
         if (!section) {
             throw new AppError_js_1.AppError('Itinerary section not found', 404);
         }
-        // Update each item orderIndex in a transaction
         await db_js_1.prisma.$transaction(itemIds.map((itemId, idx) => db_js_1.prisma.itineraryItem.updateMany({
             where: { id: itemId, sectionId },
             data: { orderIndex: idx },

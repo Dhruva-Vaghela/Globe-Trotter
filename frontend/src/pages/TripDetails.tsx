@@ -8,6 +8,7 @@ import { Badge } from '../components/ui/Badge';
 import { Dialog } from '../components/ui/Dialog';
 import { Accordion } from '../components/ui/Accordion';
 import { Loader } from '../components/common/Loader';
+import { AddSectionModal } from '../components/itinerary/AddSectionModal';
 import {
   ArrowLeft,
   Calendar,
@@ -19,6 +20,7 @@ import {
   Eye,
   Sliders,
   PieChart,
+  Plus,
 } from 'lucide-react';
 
 export const TripDetails: React.FC = () => {
@@ -29,6 +31,7 @@ export const TripDetails: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isAddSectionOpen, setIsAddSectionOpen] = useState(false);
   const [saving, setSaving] = useState(false);
 
   // Edit form state
@@ -90,6 +93,15 @@ export const TripDetails: React.FC = () => {
     } catch (err: any) {
       alert(`Failed to complete trip: ${err.message}`);
     }
+  };
+
+  const handleSaveSection = async (data: { title: string; startDate: string; endDate: string; sectionBudget: number }) => {
+    if (!id) return;
+    await apiRequest(`/trips/${id}/sections`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    await fetchTripDetails();
   };
 
   const handleDelete = async () => {
@@ -265,20 +277,28 @@ export const TripDetails: React.FC = () => {
 
       {/* Day-Wise Itinerary Sections */}
       <div style={{ marginBottom: '2rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.75rem' }}>
           <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#111827' }}>
-            Day-Wise Itinerary
+            Day-Wise Itinerary ({trip.sections?.length || 0} Days)
           </h2>
-          <Button variant="outline" size="sm" onClick={() => navigate(`/trips/${id}/view`)}>
-            <Eye size={15} /> View Full Itinerary
-          </Button>
+          <div style={{ display: 'flex', gap: '0.65rem' }}>
+            <Button variant="brand" size="sm" onClick={() => setIsAddSectionOpen(true)}>
+              <Plus size={15} /> Add Day Section
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => navigate(`/trips/${id}/view`)}>
+              <Eye size={15} /> View Full Itinerary
+            </Button>
+          </div>
         </div>
 
         {accordionItems.length > 0 ? (
           <Accordion items={accordionItems} defaultOpenId={accordionItems[0]?.id} />
         ) : (
           <Card style={{ textAlign: 'center', padding: '2rem', color: '#6b7280' }}>
-            No day-wise itinerary sections added yet.
+            <p style={{ marginBottom: '1rem' }}>No day-wise itinerary sections added yet.</p>
+            <Button variant="brand" size="sm" onClick={() => setIsAddSectionOpen(true)}>
+              <Plus size={15} /> Create First Day Section
+            </Button>
           </Card>
         )}
       </div>
@@ -354,6 +374,15 @@ export const TripDetails: React.FC = () => {
           </Card>
         )}
       </div>
+
+      {/* Add Day Section Modal */}
+      <AddSectionModal
+        isOpen={isAddSectionOpen}
+        onClose={() => setIsAddSectionOpen(false)}
+        onSave={handleSaveSection}
+        tripStartDate={trip.startDate}
+        tripEndDate={trip.endDate}
+      />
 
       {/* Edit Trip Dialog */}
       <Dialog
