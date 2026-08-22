@@ -11,6 +11,7 @@ import { TripDetails } from '../pages/TripDetails';
 import { DestinationSearch } from '../pages/DestinationSearch';
 import { ActivitySearch } from '../pages/ActivitySearch';
 import { CalendarPage } from '../pages/Calendar';
+import { Community } from '../pages/Community';
 import { Profile } from '../pages/Profile';
 import { Settings } from '../pages/Settings';
 import { ForgotPassword } from '../pages/ForgotPassword';
@@ -38,6 +39,7 @@ export const AppRoutes: React.FC = () => {
       <Route path="/" element={<Home />} />
       <Route path="/discover" element={<DestinationSearch />} />
       <Route path="/activities" element={<ActivitySearch />} />
+      <Route path="/community" element={<Community />} />
 
       <Route
         path="/login"

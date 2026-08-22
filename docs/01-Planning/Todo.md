@@ -454,32 +454,32 @@
 
 ## Backend
 
-* [ ] Community post model
-* [ ] Shared trip model
-* [ ] Community controller
-* [ ] Community service
-* [ ] Publish trip API
-* [ ] Unpublish trip API
-* [ ] Community feed API
-* [ ] Community search API
-* [ ] Community filter API
-* [ ] Community sort API
-* [ ] Delete own content API
-* [ ] Copy trip API
-* [ ] Public itinerary API
+* [X] Community post model
+* [X] Shared trip model
+* [X] Community controller
+* [X] Community service
+* [X] Publish trip API
+* [X] Unpublish trip API
+* [X] Community feed API
+* [X] Community search API
+* [X] Community filter API
+* [X] Community sort API
+* [X] Delete own content API
+* [X] Copy trip API
+* [X] Public itinerary API
 
 ## Frontend
 
-* [ ] Community page
-* [ ] Community feed
-* [ ] Shared trip cards
-* [ ] Search
-* [ ] Filter
-* [ ] Sort
-* [ ] Public trip detail page
-* [ ] Publish/unpublish controls
-* [ ] Copy Trip button
-* [ ] Community empty state
+* [X] Community page
+* [X] Community feed
+* [X] Shared trip cards
+* [X] Search
+* [X] Filter
+* [X] Sort
+* [X] Public trip detail page
+* [X] Publish/unpublish controls
+* [X] Copy Trip button
+* [X] Community empty state
 
 ---
 
