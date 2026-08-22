@@ -79,7 +79,7 @@ export const Dashboard: React.FC = () => {
           marginBottom: '2.5rem',
         }}
       >
-        <Card hoverable>
+        <Card hoverable onClick={() => navigate('/trips')} style={{ cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             <div
               style={{
@@ -98,7 +98,7 @@ export const Dashboard: React.FC = () => {
           </div>
         </Card>
 
-        <Card hoverable>
+        <Card hoverable onClick={() => navigate('/trips')} style={{ cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             <div
               style={{
@@ -119,7 +119,7 @@ export const Dashboard: React.FC = () => {
           </div>
         </Card>
 
-        <Card hoverable>
+        <Card hoverable onClick={() => navigate('/discover')} style={{ cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             <div
               style={{
@@ -140,7 +140,7 @@ export const Dashboard: React.FC = () => {
           </div>
         </Card>
 
-        <Card hoverable>
+        <Card hoverable onClick={() => navigate('/trips')} style={{ cursor: 'pointer' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             <div
               style={{
@@ -197,7 +197,7 @@ export const Dashboard: React.FC = () => {
                         {new Date(trip.startDate).toLocaleDateString()}
                       </p>
                     </div>
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="brand" onClick={() => navigate(`/trips/${trip.id}`)}>
                       View Itinerary <ArrowRight size={14} />
                     </Button>
                   </div>
@@ -210,7 +210,7 @@ export const Dashboard: React.FC = () => {
             title="No upcoming trips scheduled"
             description="Explore our 100+ destinations and book your next vacation!"
             actionText="Browse Destinations"
-            onAction={() => window.location.href = '/'}
+            onAction={() => navigate('/discover')}
           />
         )}
       </section>
@@ -248,8 +248,8 @@ export const Dashboard: React.FC = () => {
                         ₹{(trip.budget?.totalBudget || 18000).toLocaleString()}
                       </p>
                     </div>
-                    <Button size="sm" variant="secondary">
-                      Trip Details
+                    <Button size="sm" variant="secondary" onClick={() => navigate(`/trips/${trip.id}`)}>
+                      Trip Details <ArrowRight size={14} />
                     </Button>
                   </div>
                 </div>
