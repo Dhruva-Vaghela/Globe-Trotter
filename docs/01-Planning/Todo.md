@@ -300,32 +300,32 @@
 
 ## Backend
 
-* [ ] Activity model
-* [ ] Activity category model
-* [ ] Activity controller
-* [ ] Activity service
-* [ ] Activity search API
-* [ ] Activity detail API
-* [ ] Activity filter API
-* [ ] Activity sort API
-* [ ] Add activity API
-* [ ] Remove activity API
-* [ ] Reorder activity API
+* [X] Activity model
+* [X] Activity category model
+* [X] Activity controller
+* [X] Activity service
+* [X] Activity search API
+* [X] Activity detail API
+* [X] Activity filter API
+* [X] Activity sort API
+* [X] Add activity API
+* [X] Remove activity API
+* [X] Reorder activity API
 
 ## Frontend
 
-* [ ] Activity search page
-* [ ] Search bar
-* [ ] Activity results
-* [ ] Activity card
-* [ ] Activity detail view
-* [ ] Category filter
-* [ ] Cost filter
-* [ ] Duration filter
-* [ ] Add Activity action
-* [ ] Remove Activity action
-* [ ] Loading state
-* [ ] Empty state
+* [X] Activity search page
+* [X] Search bar
+* [X] Activity results
+* [X] Activity card
+* [X] Activity detail view
+* [X] Category filter
+* [X] Cost filter
+* [X] Duration filter
+* [X] Add Activity action
+* [X] Remove Activity action
+* [X] Loading state
+* [X] Empty state
 
 ---
 
