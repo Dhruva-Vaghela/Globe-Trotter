@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiRequest } from '../utils/apiClient';
 import { Loader } from '../components/common/Loader';
+import { Button } from '../components/common/Button';
 import { SectionCard } from '../components/itinerary/SectionCard';
 import type { SectionData } from '../components/itinerary/SectionCard';
 import { AddSectionModal } from '../components/itinerary/AddSectionModal';
@@ -138,9 +139,9 @@ export const ItineraryBuilder: React.FC = () => {
         <div style={{ background: '#fef2f2', color: '#dc2626', padding: '1rem', borderRadius: 'var(--radius-md)' }}>
           {error || 'Trip itinerary not found'}
         </div>
-        <button onClick={() => navigate('/trips')} style={{ marginTop: '1rem' }} className="btn-secondary">
+        <Button onClick={() => navigate('/trips')} style={{ marginTop: '1rem' }} variant="secondary">
           Back to My Trips
-        </button>
+        </Button>
       </div>
     );
   }
@@ -157,8 +158,8 @@ export const ItineraryBuilder: React.FC = () => {
           gap: '0.4rem',
           border: 'none',
           background: 'transparent',
-          color: 'var(--fg-secondary)',
-          fontWeight: 600,
+          color: '#2563eb',
+          fontWeight: 700,
           cursor: 'pointer',
           marginBottom: '1rem',
           fontSize: '0.9rem',
@@ -194,28 +195,21 @@ export const ItineraryBuilder: React.FC = () => {
           <h2 style={{ margin: 0, fontSize: '1.4rem', fontWeight: 800, color: '#0f172a' }}>
             Interactive Day Sections ({sections.length})
           </h2>
-          <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.875rem', color: 'var(--fg-muted)' }}>
+          <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.875rem', color: '#4b5563' }}>
             Organize your trip day-by-day, assign budgets, and populate activity items.
           </p>
         </div>
 
-        <button
+        <Button
+          variant="brand"
+          size="md"
           onClick={() => {
             setEditingSection(null);
             setIsAddSectionOpen(true);
           }}
-          className="btn-primary"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            padding: '0.7rem 1.25rem',
-            borderRadius: 'var(--radius-md)',
-            fontWeight: 700,
-          }}
         >
           <Plus size={18} /> Add Day Section
-        </button>
+        </Button>
       </div>
 
       {/* Sections List */}
@@ -231,19 +225,19 @@ export const ItineraryBuilder: React.FC = () => {
         >
           <Layers size={48} color="#94a3b8" style={{ marginBottom: '1rem' }} />
           <h3 style={{ margin: '0 0 0.5rem 0', fontWeight: 800, color: '#0f172a' }}>No Day Sections Created Yet</h3>
-          <p style={{ color: 'var(--fg-muted)', maxWidth: '450px', margin: '0 auto 1.5rem auto', fontSize: '0.925rem' }}>
+          <p style={{ color: '#4b5563', maxWidth: '450px', margin: '0 auto 1.5rem auto', fontSize: '0.925rem' }}>
             Start composing your itinerary by adding your first day section (e.g. Day 1: Arrival & City Walking Tour).
           </p>
-          <button
+          <Button
+            variant="brand"
+            size="md"
             onClick={() => {
               setEditingSection(null);
               setIsAddSectionOpen(true);
             }}
-            className="btn-primary"
-            style={{ padding: '0.7rem 1.4rem', fontWeight: 700 }}
           >
             + Create First Day Section
-          </button>
+          </Button>
         </div>
       ) : (
         sections.map((section) => (

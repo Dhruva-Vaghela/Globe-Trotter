@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, IndianRupee, Plus, Edit2, Trash2 } from 'lucide-react';
+import { Button } from '../common/Button';
 import { ItemRow } from './ItemRow';
 import type { ItineraryItemData } from './ItemRow';
 
@@ -90,8 +91,8 @@ export const SectionCard: React.FC<SectionCardProps> = ({
           <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>
             {section.title}
           </h3>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem', color: 'var(--fg-muted)', fontSize: '0.85rem' }}>
-            <Calendar size={14} color="var(--primary-color)" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem', color: '#4b5563', fontSize: '0.85rem' }}>
+            <Calendar size={14} color="#2563eb" />
             <span>
               {formatDateStr(section.startDate)} — {formatDateStr(section.endDate)}
             </span>
@@ -113,58 +114,27 @@ export const SectionCard: React.FC<SectionCardProps> = ({
               fontWeight: 600,
             }}
           >
-            <span style={{ color: 'var(--fg-muted)' }}>Section Budget:</span>
-            <span style={{ color: 'var(--primary-color)', display: 'inline-flex', alignItems: 'center' }}>
+            <span style={{ color: '#4b5563' }}>Section Budget:</span>
+            <span style={{ color: '#2563eb', display: 'inline-flex', alignItems: 'center', fontWeight: 700 }}>
               <IndianRupee size={13} />
               {section.sectionBudget.toLocaleString('en-IN')}
             </span>
             <span style={{ color: '#cbd5e1' }}>|</span>
-            <span style={{ color: 'var(--fg-muted)' }}>Spent:</span>
-            <span style={{ color: totalItemCost > section.sectionBudget && section.sectionBudget > 0 ? '#ef4444' : '#059669', display: 'inline-flex', alignItems: 'center' }}>
+            <span style={{ color: '#4b5563' }}>Spent:</span>
+            <span style={{ color: totalItemCost > section.sectionBudget && section.sectionBudget > 0 ? '#ef4444' : '#059669', display: 'inline-flex', alignItems: 'center', fontWeight: 700 }}>
               <IndianRupee size={13} />
               {totalItemCost.toLocaleString('en-IN')}
             </span>
           </div>
 
           {/* Edit & Delete Section Buttons */}
-          <button
-            onClick={() => onEditSection(section)}
-            style={{
-              background: '#ffffff',
-              border: '1px solid #cbd5e1',
-              borderRadius: 'var(--radius-sm)',
-              padding: '0.45rem 0.65rem',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.3rem',
-              fontSize: '0.825rem',
-              fontWeight: 600,
-              color: 'var(--fg-secondary)',
-            }}
-            title="Edit Section Details"
-          >
-            <Edit2 size={14} /> Edit
-          </button>
-          <button
-            onClick={() => onDeleteSection(section.id)}
-            style={{
-              background: '#fef2f2',
-              border: '1px solid #fca5a5',
-              borderRadius: 'var(--radius-sm)',
-              padding: '0.45rem 0.65rem',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.3rem',
-              fontSize: '0.825rem',
-              fontWeight: 600,
-              color: '#dc2626',
-            }}
-            title="Delete Section"
-          >
-            <Trash2 size={14} />
-          </button>
+          <Button variant="outline" size="sm" onClick={() => onEditSection(section)}>
+            <Edit2 size={14} /> Edit Section
+          </Button>
+
+          <Button variant="danger" size="sm" onClick={() => onDeleteSection(section.id)}>
+            <Trash2 size={14} /> Delete
+          </Button>
         </div>
       </div>
 
@@ -181,7 +151,7 @@ export const SectionCard: React.FC<SectionCardProps> = ({
               marginBottom: '1rem',
             }}
           >
-            <p style={{ margin: 0, color: 'var(--fg-muted)', fontSize: '0.9rem' }}>
+            <p style={{ margin: 0, color: '#4b5563', fontSize: '0.9rem' }}>
               No activities or events planned for this section yet.
             </p>
           </div>
@@ -199,24 +169,14 @@ export const SectionCard: React.FC<SectionCardProps> = ({
           ))
         )}
 
-        <button
+        <Button
+          variant="brand"
+          size="md"
           onClick={() => onAddItem(section.id)}
-          className="btn-primary"
-          style={{
-            width: '100%',
-            marginTop: '0.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.4rem',
-            padding: '0.65rem',
-            borderRadius: 'var(--radius-md)',
-            fontWeight: 600,
-            fontSize: '0.9rem',
-          }}
+          style={{ width: '100%', marginTop: '0.5rem' }}
         >
           <Plus size={16} /> Add Activity Item to Section
-        </button>
+        </Button>
       </div>
     </div>
   );
