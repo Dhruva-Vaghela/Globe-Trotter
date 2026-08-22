@@ -1,0 +1,18 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const healthRoutes_js_1 = __importDefault(require("./healthRoutes.js"));
+const authRoutes_js_1 = __importDefault(require("./authRoutes.js"));
+const userRoutes_js_1 = __importDefault(require("./userRoutes.js"));
+const dashboardRoutes_js_1 = __importDefault(require("./dashboardRoutes.js"));
+const tripRoutes_js_1 = __importDefault(require("./tripRoutes.js"));
+const router = (0, express_1.Router)();
+router.use('/', healthRoutes_js_1.default);
+router.use('/auth', authRoutes_js_1.default);
+router.use('/users', userRoutes_js_1.default);
+router.use('/dashboard', dashboardRoutes_js_1.default);
+router.use('/trips', tripRoutes_js_1.default);
+exports.default = router;

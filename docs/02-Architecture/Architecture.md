@@ -1,4 +1,3 @@
-
 # Architecture
 
 ## 1. Architecture Overview
